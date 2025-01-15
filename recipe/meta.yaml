@@ -6,38 +6,44 @@ package:
 
 source:
   - folder: dist
-    url: https://pypi.io/packages/source/d/dictpath/dictpath-{{ version }}.tar.gz
+    url: https://pypi.org/packages/source/d/dictpath/dictpath-{{ version }}.tar.gz
     sha256: 751cde3b76b176d25f961b90c423a11a4d5ede9bd09ab0d64a85abb738c190d8
   - folder: src
     url: https://github.com/p1c2u/dictpath/archive/refs/tags/{{ version }}.tar.gz
-    sha256: 09d918e9d01d9354a580b68685ae13e902bcf02c6080337f454ae161c70806f1
+    sha256: 1f14d5a1d32b9a1ea43a6bd1d5ef0dbb658178d8cd347ed693c4ce9a6048c30e
 
 build:
-  number: 0
+  number: 1
   noarch: python
-  script: cd dist && {{ PYTHON }} -m pip install . -vv
+  script:
+    - cd dist 
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
 
 requirements:
   host:
-    - python >=3.6
     - pip
+    - python {{ python_min }}
+    - setuptools
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - six
 
 test:
   source_files:
     - src/tests
-  imports:
-    - dictpath
-  commands:
-    - pip check
-    - cd src && pytest --cov dictpath --cov-fail-under 79 --cov-report term-missing:skip-covered --no-cov-on-fail
   requires:
     - mock
     - pip
     - pytest
     - pytest-cov
+    - python {{ python_min }}
+  imports:
+    - dictpath
+  commands:
+    - pip check
+    - cd src 
+    - coverage run --source=dictpath --branch -m pytest -vv --tb=long --color=yes
+    - coverage report --show-missing --skip-covered --fail-under=77
 
 about:
   home: https://github.com/p1c2u/dictpath
