@@ -10,7 +10,7 @@ source:
     sha256: 751cde3b76b176d25f961b90c423a11a4d5ede9bd09ab0d64a85abb738c190d8
   - folder: src
     url: https://github.com/p1c2u/dictpath/archive/refs/tags/{{ version }}.tar.gz
-    sha256: 09d918e9d01d9354a580b68685ae13e902bcf02c6080337f454ae161c70806f1
+    sha256: 1f14d5a1d32b9a1ea43a6bd1d5ef0dbb658178d8cd347ed693c4ce9a6048c30e
 
 build:
   number: 1
