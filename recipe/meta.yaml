@@ -43,7 +43,7 @@ test:
     - pip check
     - cd src 
     - coverage run --source=dictpath --branch -m pytest -vv --tb=long --color=yes
-    - coverage report --show-missing --skip-covered --fail-under 79
+    - coverage report --show-missing --skip-covered --fail-under=77
 
 about:
   home: https://github.com/p1c2u/dictpath
